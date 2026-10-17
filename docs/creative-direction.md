@@ -6,8 +6,9 @@ has been learned from reviewing real footage and feedback.
 
 ## Non-negotiables
 
-- No colour filters, grades, grain, vignettes or lighting changes. iPhone HDR
-  is only converted to standard colour so it looks as it does on the phone.
+- No stylised filters, grain, vignettes or lighting changes. A very gentle
+  soft, warm grade is welcome if paint colours and wood tones stay true;
+  avoid excess yellow, orange, contrast or saturation.
 - No zooms, flashy transitions or effects added for the sake of looking edited.
 - No cheesy, generic or "AI-sounding" text. Fewer words is better; no text
   is often best.
@@ -34,7 +35,8 @@ has been learned from reviewing real footage and feedback.
 
 ## Text overlays
 
-- One delicate serif typeface, small, cream or mushroom depending on the
+- Cormorant Garamond (Medium, upright) is the house typeface. One delicate
+  serif only, small, cream or mushroom depending on the
   background; placed clear of the subject and the TikTok interface.
 - Prefer useful, quiet text (e.g. the paint colour on the painting shot)
   over slogans.
@@ -46,3 +48,9 @@ has been learned from reviewing real footage and feedback.
 - Table upcycle v1: vintage grade + four captions. Rejected: filter and
   lighting change.
 - Table upcycle v2: natural colour, hard cuts, one dissolve, two overlays.
+- Table upcycle v3 (refinement of v2): Cormorant Garamond, gentle soft/warm
+  grade (warmth only on cool-white shots), short dissolves through the
+  process, reveal given about half the running time. Overlays kept:
+  "Back to bare pine", "A little farmhouse charm / for a new build".
+- Frenchic collaborations: products clearly visible in the edit, but never
+  framed like an advert.
