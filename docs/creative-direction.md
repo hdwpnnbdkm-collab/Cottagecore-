@@ -35,9 +35,10 @@ has been learned from reviewing real footage and feedback.
 
 ## Text overlays
 
-- Cormorant Garamond (Medium, upright) is the house typeface. One delicate
-  serif only, small, cream or mushroom depending on the
-  background; placed clear of the subject and the TikTok interface.
+- House typeface: Cormorant Garamond SemiBold Italic, ivory, around 90-96px
+  on a 1080x1920 frame, with a soft blurred shadow (never a hard offset
+  shadow). Medium upright was rejected as "very poor": too thin and spindly
+  at caption size. Placed clear of the subject and the TikTok interface.
 - Prefer useful, quiet text (e.g. the paint colour on the painting shot)
   over slogans.
 - Rejected: "a soft, chalky trim paint" (inaccurate), "and here she is...
@@ -61,5 +62,7 @@ has been learned from reviewing real footage and feedback.
   doubling brightness; the shadow lift washed it out further. Now 203 nits
   with hable tone mapping, no lifted blacks, warmth on all reveal shots and
   ivory text over the blinds. Always check exposure against the phone.
+- Table upcycle v6: overlays switched to Cormorant Garamond SemiBold Italic,
+  ivory, soft blurred shadow.
 - Frenchic collaborations: products clearly visible in the edit, but never
   framed like an advert.

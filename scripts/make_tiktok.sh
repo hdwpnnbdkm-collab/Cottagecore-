@@ -8,7 +8,8 @@
 #   grade that keeps paint colours and wood tones true.
 # - Short, quiet dissolves through the process; a slower dissolve into the
 #   reveal, which gets around two thirds of the running time and ends on the chair.
-# - Two understated overlays in Cormorant Garamond, clear of the TikTok interface.
+# - Two understated overlays in Cormorant Garamond SemiBold Italic, clear of
+#   the TikTok interface.
 # - Original sound kept; 1080x1920, 30fps, H.264/AAC.
 set -euo pipefail
 
@@ -19,7 +20,7 @@ fi
 
 HERE="$(cd "$(dirname "$0")/.." && pwd)"
 CAP="$HERE/captions"
-FONT="${FONT:-$HERE/fonts/cormorant-garamond-latin-500-normal.woff}"
+FONT="${FONT:-$HERE/fonts/cormorant-garamond-latin-600-italic.woff}"
 
 # Start and length (seconds) used from each clip.
 S1=0;   D1=4.2
@@ -51,20 +52,26 @@ FIT="scale=1080:1920:force_original_aspect_ratio=increase,crop=1080:1920,setsar=
 AFMT="aformat=sample_rates=44100:channel_layouts=stereo"
 
 # Caption helper: one centred drawtext per line, gently fading in/out.
-# Mushroom text on pale pine; ivory with a soft dark shadow over the blinds.
+# Ivory text over a soft blurred shadow (rendered on its own layer) rather
+# than a hard offset shadow.
 TMP="$(mktemp -d)"; trap 'rm -rf "$TMP"' EXIT
-cap() { # file start end y size colour shadow
-  local f="$1" s="$2" e="$3" y="$4" sz="$5" col="$6" sh="$7" i=0 out="" line
+cap() { # file start end y size colour
+  local f="$1" s="$2" e="$3" y="$4" sz="$5" col="$6" i=0 out="" line
   while IFS= read -r line || [ -n "$line" ]; do
     printf '%s' "$line" > "$TMP/$f.$i"
-    out+="${out:+,}drawtext=fontfile='$FONT':textfile='$TMP/$f.$i':fontsize=$sz:fontcolor=$col:shadowcolor=$sh:shadowx=2:shadowy=2:x=(w-text_w)/2:y=$y+$i*($sz*1.2):enable='between(t,$s,$e)':alpha='min(1,min((t-$s)/0.7,($e-t)/0.7))'"
+    out+="${out:+,}drawtext=fontfile='$FONT':textfile='$TMP/$f.$i':fontsize=$sz:fontcolor=$col:x=(w-text_w)/2:y=$y+$i*($sz*1.22):enable='between(t,$s,$e)':alpha='min(1,min((t-$s)/0.7,($e-t)/0.7))'"
     i=$((i+1))
   done < "$CAP/$f"
   printf '%s' "$out"
 }
 
-C1=$(cap 01_opening.txt 0.3 "$(echo "$O1+0.1" | bc)" 1180 84 0x5C4D3F 0xFFFDF8@0.5)
-C2=$(cap 02_reveal.txt "$(echo "$O3+2.0" | bc)" "$(echo "$O4+0.1" | bc)" 240 76 0xFBF5EA 0x2B2118@0.6)
+T1S=0.3;                      T1E=$(echo "$O1+0.1" | bc)
+T2S=$(echo "$O3+2.0" | bc);   T2E=$(echo "$O4+0.1" | bc)
+IVORY=0xFBF5EA; SHADE=0x2B2118@0.6
+C1=$(cap 01_opening.txt "$T1S" "$T1E" 1180 96 $IVORY)
+C2=$(cap 02_reveal.txt "$T2S" "$T2E" 250 90 $IVORY)
+SH1=$(cap 01_opening.txt "$T1S" "$T1E" 1180 96 $SHADE)
+SH2=$(cap 02_reveal.txt "$T2S" "$T2E" 250 90 $SHADE)
 
 ffmpeg -hide_banner -y \
   -ss "$S1" -t "$D1" -i "$1" \
@@ -85,7 +92,8 @@ ffmpeg -hide_banner -y \
 [x2][v3]xfade=transition=fade:duration=$XR:offset=$O3[x3];
 [x3][v4]xfade=transition=fade:duration=$XV:offset=$O4[x4];
 [x4][v5]xfade=transition=fade:duration=$XV:offset=$O5[x5];
-[x5]$C1,$C2,fade=t=out:st=$(echo "$TOTAL-$HOLD" | bc):d=$HOLD,format=yuv420p[v];
+color=c=black@0:s=1080x1920:r=30:d=$TOTAL,format=rgba,$SH1,$SH2,gblur=sigma=7[shade];
+[x5][shade]overlay=format=auto,$C1,$C2,fade=t=out:st=$(echo "$TOTAL-$HOLD" | bc):d=$HOLD,format=yuv420p[v];
 [0:a]volume=0.7,$AFMT[a0];
 [1:a]$AFMT[a1];
 [2:a]$AFMT[a2];
