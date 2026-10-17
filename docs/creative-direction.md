@@ -56,5 +56,10 @@ has been learned from reviewing real footage and feedback.
   (IMG_9097, reversed so it settles on the chair). Reveal is now ~15s of
   ~24s and ends resting on the chair. Those two shots get a touch of
   neutralising instead of warmth: bright window light turned the pine salmon.
+- Table upcycle v5: fixed "incredibly bright" footage. Root cause: HDR was
+  converted with a 100-nit reference instead of the 203-nit HLG standard,
+  doubling brightness; the shadow lift washed it out further. Now 203 nits
+  with hable tone mapping, no lifted blacks, warmth on all reveal shots and
+  ivory text over the blinds. Always check exposure against the phone.
 - Frenchic collaborations: products clearly visible in the edit, but never
   framed like an advert.

@@ -39,21 +39,19 @@ O4=$(echo "$O3+$D4-$XV" | bc)
 O5=$(echo "$O4+$D5-$XV" | bc)
 TOTAL=$(echo "$O5+$D6+$HOLD" | bc)
 
-# HLG -> SDR bt709; mobius keeps it closest to how the iPhone displays it.
-TOPHONE="zscale=t=linear:npl=100,format=gbrpf32le,zscale=p=bt709,tonemap=mobius:desat=0,zscale=t=bt709:m=bt709:r=tv,format=yuv420p"
-# Soft: slightly lifted shadows and eased highlights, a touch less contrast and saturation.
-SOFT="curves=all='0/0.025 0.5/0.505 1/0.975',eq=contrast=0.96:saturation=0.95"
-# Warm: only for shots with cool whites (paint tin, wide reveal). The sanding and
-# windowsill shots are already warm and would tip into orange.
+# HLG -> SDR bt709 at the standard 203-nit HLG reference white, with hable
+# keeping window highlights and wood tones intact (npl=100 doubled brightness).
+TOPHONE="zscale=t=linear:npl=203,format=gbrpf32le,zscale=p=bt709,tonemap=hable:desat=0,zscale=t=bt709:m=bt709:r=tv,format=yuv420p"
+# Soft: gently opened midtones and eased highlights, no lifted blacks (they wash it out).
+SOFT="curves=all='0/0 0.5/0.53 1/0.98',eq=saturation=0.97"
+# Warm: only for shots with cool whites (paint tin and the three reveal shots).
+# The sanding and windowsill shots are already warm and would tip into orange.
 WARM="colorbalance=rm=0.025:gm=0.005:bm=-0.025:rh=0.015:bh=-0.02"
-# Neutral: the tabletop and chair shots read salmon in bright window light;
-# a touch less red keeps the pine honey and the paint a true cream.
-NEUTRAL="colorbalance=rm=-0.02:bm=0.01,eq=saturation=0.92"
 FIT="scale=1080:1920:force_original_aspect_ratio=increase,crop=1080:1920,setsar=1,fps=30,settb=AVTB"
 AFMT="aformat=sample_rates=44100:channel_layouts=stereo"
 
 # Caption helper: one centred drawtext per line, gently fading in/out.
-# Mushroom text with a soft light shadow reads on pale pine and bright windows.
+# Mushroom text on pale pine; ivory with a soft dark shadow over the blinds.
 TMP="$(mktemp -d)"; trap 'rm -rf "$TMP"' EXIT
 cap() { # file start end y size colour shadow
   local f="$1" s="$2" e="$3" y="$4" sz="$5" col="$6" sh="$7" i=0 out="" line
@@ -66,7 +64,7 @@ cap() { # file start end y size colour shadow
 }
 
 C1=$(cap 01_opening.txt 0.3 "$(echo "$O1+0.1" | bc)" 1180 84 0x5C4D3F 0xFFFDF8@0.5)
-C2=$(cap 02_reveal.txt "$(echo "$O3+2.0" | bc)" "$(echo "$O4+0.1" | bc)" 240 76 0x5C4D3F 0xFFFDF8@0.55)
+C2=$(cap 02_reveal.txt "$(echo "$O3+2.0" | bc)" "$(echo "$O4+0.1" | bc)" 240 76 0xFBF5EA 0x2B2118@0.6)
 
 ffmpeg -hide_banner -y \
   -ss "$S1" -t "$D1" -i "$1" \
@@ -80,8 +78,8 @@ ffmpeg -hide_banner -y \
 [1:v]$TOPHONE,$FIT,$SOFT,$WARM[v1];
 [2:v]$TOPHONE,$FIT,$SOFT[v2];
 [3:v]$TOPHONE,$FIT,$SOFT,$WARM[v3];
-[4:v]$TOPHONE,$FIT,$SOFT,$NEUTRAL[v4];
-[5:v]$TOPHONE,$FIT,$SOFT,$NEUTRAL,reverse,tpad=stop_mode=clone:stop_duration=$HOLD,settb=AVTB[v5];
+[4:v]$TOPHONE,$FIT,$SOFT,$WARM[v4];
+[5:v]$TOPHONE,$FIT,$SOFT,$WARM,reverse,tpad=stop_mode=clone:stop_duration=$HOLD,settb=AVTB[v5];
 [v0][v1]xfade=transition=fade:duration=$XS:offset=$O1[x1];
 [x1][v2]xfade=transition=fade:duration=$XS:offset=$O2[x2];
 [x2][v3]xfade=transition=fade:duration=$XR:offset=$O3[x3];
