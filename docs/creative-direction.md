@@ -35,10 +35,13 @@ has been learned from reviewing real footage and feedback.
 
 ## Text overlays
 
-- House typeface: Cormorant Garamond SemiBold Italic, ivory, around 90-96px
-  on a 1080x1920 frame, with a soft blurred shadow (never a hard offset
-  shadow). Medium upright was rejected as "very poor": too thin and spindly
-  at caption size. Placed clear of the subject and the TikTok interface.
+- House style: a magazine lockup set with libass. Lead words in small spaced
+  capitals (Cormorant Garamond SemiBold, ~56px, wide tracking), the phrase
+  below in Cormorant Garamond Medium Italic (~86px). Ivory with a soft
+  blurred edge; gentle fades. Placed clear of the subject and TikTok UI.
+- Rejected typography: Cormorant Medium upright ("very poor", spindly);
+  large SemiBold Italic sentences ("still poor", wedding-stationery feel,
+  dominated the frame); any hard offset drop shadow.
 - Prefer useful, quiet text (e.g. the paint colour on the painting shot)
   over slogans.
 - Rejected: "a soft, chalky trim paint" (inaccurate), "and here she is...
@@ -64,5 +67,7 @@ has been learned from reviewing real footage and feedback.
   ivory text over the blinds. Always check exposure against the phone.
 - Table upcycle v6: overlays switched to Cormorant Garamond SemiBold Italic,
   ivory, soft blurred shadow.
+- Table upcycle v7: captions reset as magazine lockups ("BACK TO / bare
+  pine", "A LITTLE FARMHOUSE CHARM / for a new build").
 - Frenchic collaborations: products clearly visible in the edit, but never
   framed like an advert.
