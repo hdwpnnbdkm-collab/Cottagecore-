@@ -52,5 +52,9 @@ has been learned from reviewing real footage and feedback.
   grade (warmth only on cool-white shots), short dissolves through the
   process, reveal given about half the running time. Overlays kept:
   "Back to bare pine", "A little farmhouse charm / for a new build".
+- Table upcycle v4: added the tabletop tracking shot (IMG_9094) and the chair
+  (IMG_9097, reversed so it settles on the chair). Reveal is now ~15s of
+  ~24s and ends resting on the chair. Those two shots get a touch of
+  neutralising instead of warmth: bright window light turned the pine salmon.
 - Frenchic collaborations: products clearly visible in the edit, but never
   framed like an advert.
